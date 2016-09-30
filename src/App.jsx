@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Page, Button, Toolbar, Input, ListItem} from 'react-onsenui';
+import {Page, Button, Toolbar, Input, ListItem, Modal} from 'react-onsenui';
 import {notification} from 'onsenui';
 
 export default class App extends React.Component {
@@ -13,19 +13,26 @@ export default class App extends React.Component {
       userName: '',
       emailAddress:'',
       password:'',
-      confirmPassword: ''
+      confirmPassword:'',
+      isOpen:false
     };
   }
 
   alertPopup() {
     notification.alert('Submit Success');
   }
+  modalPopup() {
+    notification.alert('MODAL POPUP!');
+  }
 
   render(){
     return (
-      <Page >
-        <div style={{backgroundColor:'white'}}>
-          <div style={{width:800, height:600, backgroundColor:'white'}}>
+      <Page>
+        <Button style={{marginLeft:20}} ref='button' onClick={() => this.setState({isOpen: true})} > CLICK HERE! 
+        </Button>
+        <Modal isOpen={this.state.isOpen}>
+
+          <div style={{backgroundColor:'white',width:1000, height:1000, align:'center'}}>
             <div style={{marginTop:20, marginLeft:20}}>
               <p style={{color:'black', fontSize:20}}>Join the Action Sports Network</p>
             </div>
@@ -87,8 +94,11 @@ export default class App extends React.Component {
               <label style={{marginLeft:10}}>I have read and agree to the</label>
               <a href="https://onsen.io/"> terms of sevice.*</a>
             </div> 
-          </div>
-        </div>
+            <Button onClick={() => this.setState({isOpen: false})}>
+                  Close
+            </Button>
+          </div>          
+        </Modal>
       </Page>
     );
   }
